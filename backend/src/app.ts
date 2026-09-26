@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import { env } from "./config/env.js";
 import authRoutes from "./features/auth/auth.routes.js";
 import productRoutes from "./features/products/product.routes.js";
+import catalogRoutes from "./features/catalog/catalog.routes.js";
 import { errorHandler } from "./middleware/error.middleware.js";
 
 const app = express();
@@ -33,6 +34,7 @@ app.use(
 );
 
 app.use("/api/products", productRoutes);
+app.use("/api/catalog", catalogRoutes);
 
 app.use(errorHandler);
 
