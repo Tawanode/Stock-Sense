@@ -1,0 +1,6229 @@
+{
+  "schemaVersion": "1",
+  "targetFamily": "sql",
+  "target": "postgres",
+  "profileHash": "3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2",
+  "roots": {
+    "adjustment_items": {
+      "model": "AdjustmentItems",
+      "namespace": "public"
+    },
+    "adjustments": {
+      "model": "Adjustments",
+      "namespace": "public"
+    },
+    "categories": {
+      "model": "Categories",
+      "namespace": "public"
+    },
+    "customers": {
+      "model": "Customers",
+      "namespace": "public"
+    },
+    "delivery_items": {
+      "model": "DeliveryItems",
+      "namespace": "public"
+    },
+    "delivery_orders": {
+      "model": "DeliveryOrders",
+      "namespace": "public"
+    },
+    "locations": {
+      "model": "Locations",
+      "namespace": "public"
+    },
+    "password_reset_otps": {
+      "model": "PasswordResetOtps",
+      "namespace": "public"
+    },
+    "permissions": {
+      "model": "Permissions",
+      "namespace": "public"
+    },
+    "products": {
+      "model": "Products",
+      "namespace": "public"
+    },
+    "receipt_items": {
+      "model": "ReceiptItems",
+      "namespace": "public"
+    },
+    "receipts": {
+      "model": "Receipts",
+      "namespace": "public"
+    },
+    "reorder_rules": {
+      "model": "ReorderRules",
+      "namespace": "public"
+    },
+    "role_permissions": {
+      "model": "RolePermissions",
+      "namespace": "public"
+    },
+    "roles": {
+      "model": "Roles",
+      "namespace": "public"
+    },
+    "stock": {
+      "model": "Stock",
+      "namespace": "public"
+    },
+    "stock_ledger": {
+      "model": "StockLedger",
+      "namespace": "public"
+    },
+    "suppliers": {
+      "model": "Suppliers",
+      "namespace": "public"
+    },
+    "transfer_items": {
+      "model": "TransferItems",
+      "namespace": "public"
+    },
+    "transfers": {
+      "model": "Transfers",
+      "namespace": "public"
+    },
+    "units": {
+      "model": "Units",
+      "namespace": "public"
+    },
+    "users": {
+      "model": "Users",
+      "namespace": "public"
+    },
+    "warehouses": {
+      "model": "Warehouses",
+      "namespace": "public"
+    }
+  },
+  "domain": {
+    "namespaces": {
+      "public": {
+        "models": {
+          "AdjustmentItems": {
+            "fields": {
+              "adjustmentId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "countedQuantity": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/numeric@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "difference": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/numeric@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "locationId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "productId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "systemQuantity": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/numeric@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                }
+              }
+            },
+            "relations": {
+              "adjustment": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "adjustmentId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Adjustments",
+                  "namespace": "public"
+                }
+              },
+              "location": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "locationId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Locations",
+                  "namespace": "public"
+                }
+              },
+              "product": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "productId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Products",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "adjustmentId": {
+                  "column": "adjustment_id"
+                },
+                "countedQuantity": {
+                  "column": "counted_quantity"
+                },
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "difference": {
+                  "column": "difference"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "locationId": {
+                  "column": "location_id"
+                },
+                "productId": {
+                  "column": "product_id"
+                },
+                "systemQuantity": {
+                  "column": "system_quantity"
+                }
+              },
+              "namespaceId": "public",
+              "table": "adjustment_items"
+            }
+          },
+          "Adjustments": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdBy": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "reason": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "reference": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 50
+                  }
+                }
+              },
+              "status": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/enum@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "typeName": "operation_status"
+                  }
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "validatedAt": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "validatedBy": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "adjustmentItems": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "adjustmentId"
+                  ]
+                },
+                "to": {
+                  "model": "AdjustmentItems",
+                  "namespace": "public"
+                }
+              },
+              "users": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "createdBy"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Users",
+                  "namespace": "public"
+                }
+              },
+              "usersUsers": {
+                "cardinality": "N:1",
+                "nullable": true,
+                "on": {
+                  "localFields": [
+                    "validatedBy"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Users",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "createdBy": {
+                  "column": "created_by"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "reason": {
+                  "column": "reason"
+                },
+                "reference": {
+                  "column": "reference"
+                },
+                "status": {
+                  "column": "status"
+                },
+                "updatedAt": {
+                  "column": "updated_at"
+                },
+                "validatedAt": {
+                  "column": "validated_at"
+                },
+                "validatedBy": {
+                  "column": "validated_by"
+                }
+              },
+              "namespaceId": "public",
+              "table": "adjustments"
+            }
+          },
+          "Categories": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "description": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "name": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 100
+                  }
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "products": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "categoryId"
+                  ]
+                },
+                "to": {
+                  "model": "Products",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "description": {
+                  "column": "description"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "name": {
+                  "column": "name"
+                },
+                "updatedAt": {
+                  "column": "updated_at"
+                }
+              },
+              "namespaceId": "public",
+              "table": "categories"
+            }
+          },
+          "Customers": {
+            "fields": {
+              "address": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "email": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "isActive": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/bool@1",
+                  "kind": "scalar"
+                }
+              },
+              "name": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 150
+                  }
+                }
+              },
+              "phone": {
+                "nullable": true,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 30
+                  }
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "deliveryOrders": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "customerId"
+                  ]
+                },
+                "to": {
+                  "model": "DeliveryOrders",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "address": {
+                  "column": "address"
+                },
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "email": {
+                  "column": "email"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "isActive": {
+                  "column": "is_active"
+                },
+                "name": {
+                  "column": "name"
+                },
+                "phone": {
+                  "column": "phone"
+                },
+                "updatedAt": {
+                  "column": "updated_at"
+                }
+              },
+              "namespaceId": "public",
+              "table": "customers"
+            }
+          },
+          "DeliveryItems": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "deliveryId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "locationId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "productId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "quantity": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/numeric@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                }
+              }
+            },
+            "relations": {
+              "delivery": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "deliveryId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "DeliveryOrders",
+                  "namespace": "public"
+                }
+              },
+              "location": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "locationId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Locations",
+                  "namespace": "public"
+                }
+              },
+              "product": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "productId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Products",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "deliveryId": {
+                  "column": "delivery_id"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "locationId": {
+                  "column": "location_id"
+                },
+                "productId": {
+                  "column": "product_id"
+                },
+                "quantity": {
+                  "column": "quantity"
+                }
+              },
+              "namespaceId": "public",
+              "table": "delivery_items"
+            }
+          },
+          "DeliveryOrders": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdBy": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "customerId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "notes": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "reference": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 50
+                  }
+                }
+              },
+              "status": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/enum@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "typeName": "operation_status"
+                  }
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "validatedAt": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "validatedBy": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "warehouseId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "customer": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "customerId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Customers",
+                  "namespace": "public"
+                }
+              },
+              "deliveryItems": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "deliveryId"
+                  ]
+                },
+                "to": {
+                  "model": "DeliveryItems",
+                  "namespace": "public"
+                }
+              },
+              "users": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "createdBy"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Users",
+                  "namespace": "public"
+                }
+              },
+              "usersUsers": {
+                "cardinality": "N:1",
+                "nullable": true,
+                "on": {
+                  "localFields": [
+                    "validatedBy"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Users",
+                  "namespace": "public"
+                }
+              },
+              "warehouse": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "warehouseId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Warehouses",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "createdBy": {
+                  "column": "created_by"
+                },
+                "customerId": {
+                  "column": "customer_id"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "notes": {
+                  "column": "notes"
+                },
+                "reference": {
+                  "column": "reference"
+                },
+                "status": {
+                  "column": "status"
+                },
+                "updatedAt": {
+                  "column": "updated_at"
+                },
+                "validatedAt": {
+                  "column": "validated_at"
+                },
+                "validatedBy": {
+                  "column": "validated_by"
+                },
+                "warehouseId": {
+                  "column": "warehouse_id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "delivery_orders"
+            }
+          },
+          "Locations": {
+            "fields": {
+              "code": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 50
+                  }
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "description": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "isActive": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/bool@1",
+                  "kind": "scalar"
+                }
+              },
+              "name": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 120
+                  }
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "warehouseId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "adjustmentItems": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "locationId"
+                  ]
+                },
+                "to": {
+                  "model": "AdjustmentItems",
+                  "namespace": "public"
+                }
+              },
+              "deliveryItems": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "locationId"
+                  ]
+                },
+                "to": {
+                  "model": "DeliveryItems",
+                  "namespace": "public"
+                }
+              },
+              "receiptItems": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "locationId"
+                  ]
+                },
+                "to": {
+                  "model": "ReceiptItems",
+                  "namespace": "public"
+                }
+              },
+              "reorderRules": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "locationId"
+                  ]
+                },
+                "to": {
+                  "model": "ReorderRules",
+                  "namespace": "public"
+                }
+              },
+              "stockLedgers": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "fromLocationId"
+                  ]
+                },
+                "to": {
+                  "model": "StockLedger",
+                  "namespace": "public"
+                }
+              },
+              "stockLedgersStockLedger": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "toLocationId"
+                  ]
+                },
+                "to": {
+                  "model": "StockLedger",
+                  "namespace": "public"
+                }
+              },
+              "stocks": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "locationId"
+                  ]
+                },
+                "to": {
+                  "model": "Stock",
+                  "namespace": "public"
+                }
+              },
+              "transferItems": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "fromLocationId"
+                  ]
+                },
+                "to": {
+                  "model": "TransferItems",
+                  "namespace": "public"
+                }
+              },
+              "transferItemsTransferItems": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "toLocationId"
+                  ]
+                },
+                "to": {
+                  "model": "TransferItems",
+                  "namespace": "public"
+                }
+              },
+              "warehouse": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "warehouseId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Warehouses",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "code": {
+                  "column": "code"
+                },
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "description": {
+                  "column": "description"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "isActive": {
+                  "column": "is_active"
+                },
+                "name": {
+                  "column": "name"
+                },
+                "updatedAt": {
+                  "column": "updated_at"
+                },
+                "warehouseId": {
+                  "column": "warehouse_id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "locations"
+            }
+          },
+          "PasswordResetOtps": {
+            "fields": {
+              "attempts": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "expiresAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "otpHash": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "usedAt": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "userId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "user": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "userId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Users",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "attempts": {
+                  "column": "attempts"
+                },
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "expiresAt": {
+                  "column": "expires_at"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "otpHash": {
+                  "column": "otp_hash"
+                },
+                "usedAt": {
+                  "column": "used_at"
+                },
+                "userId": {
+                  "column": "user_id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "password_reset_otps"
+            }
+          },
+          "Permissions": {
+            "fields": {
+              "code": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 100
+                  }
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "description": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "rolePermissions": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "permissionId"
+                  ]
+                },
+                "to": {
+                  "model": "RolePermissions",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "code": {
+                  "column": "code"
+                },
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "description": {
+                  "column": "description"
+                },
+                "id": {
+                  "column": "id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "permissions"
+            }
+          },
+          "Products": {
+            "fields": {
+              "categoryId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "isActive": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/bool@1",
+                  "kind": "scalar"
+                }
+              },
+              "name": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 150
+                  }
+                }
+              },
+              "sku": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 80
+                  }
+                }
+              },
+              "unitId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "adjustmentItems": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "productId"
+                  ]
+                },
+                "to": {
+                  "model": "AdjustmentItems",
+                  "namespace": "public"
+                }
+              },
+              "category": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "categoryId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Categories",
+                  "namespace": "public"
+                }
+              },
+              "deliveryItems": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "productId"
+                  ]
+                },
+                "to": {
+                  "model": "DeliveryItems",
+                  "namespace": "public"
+                }
+              },
+              "receiptItems": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "productId"
+                  ]
+                },
+                "to": {
+                  "model": "ReceiptItems",
+                  "namespace": "public"
+                }
+              },
+              "reorderRules": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "productId"
+                  ]
+                },
+                "to": {
+                  "model": "ReorderRules",
+                  "namespace": "public"
+                }
+              },
+              "stockLedgers": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "productId"
+                  ]
+                },
+                "to": {
+                  "model": "StockLedger",
+                  "namespace": "public"
+                }
+              },
+              "stocks": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "productId"
+                  ]
+                },
+                "to": {
+                  "model": "Stock",
+                  "namespace": "public"
+                }
+              },
+              "transferItems": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "productId"
+                  ]
+                },
+                "to": {
+                  "model": "TransferItems",
+                  "namespace": "public"
+                }
+              },
+              "unit": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "unitId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Units",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "categoryId": {
+                  "column": "category_id"
+                },
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "isActive": {
+                  "column": "is_active"
+                },
+                "name": {
+                  "column": "name"
+                },
+                "sku": {
+                  "column": "sku"
+                },
+                "unitId": {
+                  "column": "unit_id"
+                },
+                "updatedAt": {
+                  "column": "updated_at"
+                }
+              },
+              "namespaceId": "public",
+              "table": "products"
+            }
+          },
+          "ReceiptItems": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "locationId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "productId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "quantity": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/numeric@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                }
+              },
+              "receiptId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "location": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "locationId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Locations",
+                  "namespace": "public"
+                }
+              },
+              "product": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "productId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Products",
+                  "namespace": "public"
+                }
+              },
+              "receipt": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "receiptId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Receipts",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "locationId": {
+                  "column": "location_id"
+                },
+                "productId": {
+                  "column": "product_id"
+                },
+                "quantity": {
+                  "column": "quantity"
+                },
+                "receiptId": {
+                  "column": "receipt_id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "receipt_items"
+            }
+          },
+          "Receipts": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdBy": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "notes": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "reference": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 50
+                  }
+                }
+              },
+              "status": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/enum@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "typeName": "operation_status"
+                  }
+                }
+              },
+              "supplierId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "validatedAt": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "validatedBy": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "warehouseId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "receiptItems": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "receiptId"
+                  ]
+                },
+                "to": {
+                  "model": "ReceiptItems",
+                  "namespace": "public"
+                }
+              },
+              "supplier": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "supplierId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Suppliers",
+                  "namespace": "public"
+                }
+              },
+              "users": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "createdBy"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Users",
+                  "namespace": "public"
+                }
+              },
+              "usersUsers": {
+                "cardinality": "N:1",
+                "nullable": true,
+                "on": {
+                  "localFields": [
+                    "validatedBy"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Users",
+                  "namespace": "public"
+                }
+              },
+              "warehouse": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "warehouseId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Warehouses",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "createdBy": {
+                  "column": "created_by"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "notes": {
+                  "column": "notes"
+                },
+                "reference": {
+                  "column": "reference"
+                },
+                "status": {
+                  "column": "status"
+                },
+                "supplierId": {
+                  "column": "supplier_id"
+                },
+                "updatedAt": {
+                  "column": "updated_at"
+                },
+                "validatedAt": {
+                  "column": "validated_at"
+                },
+                "validatedBy": {
+                  "column": "validated_by"
+                },
+                "warehouseId": {
+                  "column": "warehouse_id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "receipts"
+            }
+          },
+          "ReorderRules": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "isActive": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/bool@1",
+                  "kind": "scalar"
+                }
+              },
+              "locationId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "maximumQuantity": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/numeric@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                }
+              },
+              "minimumQuantity": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/numeric@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                }
+              },
+              "productId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "reorderQuantity": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/numeric@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "location": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "locationId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Locations",
+                  "namespace": "public"
+                }
+              },
+              "product": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "productId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Products",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "isActive": {
+                  "column": "is_active"
+                },
+                "locationId": {
+                  "column": "location_id"
+                },
+                "maximumQuantity": {
+                  "column": "maximum_quantity"
+                },
+                "minimumQuantity": {
+                  "column": "minimum_quantity"
+                },
+                "productId": {
+                  "column": "product_id"
+                },
+                "reorderQuantity": {
+                  "column": "reorder_quantity"
+                },
+                "updatedAt": {
+                  "column": "updated_at"
+                }
+              },
+              "namespaceId": "public",
+              "table": "reorder_rules"
+            }
+          },
+          "RolePermissions": {
+            "fields": {
+              "permissionId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "roleId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "permission": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "permissionId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Permissions",
+                  "namespace": "public"
+                }
+              },
+              "role": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "roleId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Roles",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "permissionId": {
+                  "column": "permission_id"
+                },
+                "roleId": {
+                  "column": "role_id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "role_permissions"
+            }
+          },
+          "Roles": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "description": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "name": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 50
+                  }
+                }
+              }
+            },
+            "relations": {
+              "rolePermissions": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "roleId"
+                  ]
+                },
+                "to": {
+                  "model": "RolePermissions",
+                  "namespace": "public"
+                }
+              },
+              "users": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "roleId"
+                  ]
+                },
+                "to": {
+                  "model": "Users",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "description": {
+                  "column": "description"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "name": {
+                  "column": "name"
+                }
+              },
+              "namespaceId": "public",
+              "table": "roles"
+            }
+          },
+          "Stock": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "locationId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "productId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "quantity": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/numeric@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                }
+              },
+              "reservedQuantity": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/numeric@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "location": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "locationId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Locations",
+                  "namespace": "public"
+                }
+              },
+              "product": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "productId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Products",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "locationId": {
+                  "column": "location_id"
+                },
+                "productId": {
+                  "column": "product_id"
+                },
+                "quantity": {
+                  "column": "quantity"
+                },
+                "reservedQuantity": {
+                  "column": "reserved_quantity"
+                },
+                "updatedAt": {
+                  "column": "updated_at"
+                }
+              },
+              "namespaceId": "public",
+              "table": "stock"
+            }
+          },
+          "StockLedger": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "fromLocationId": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "operationType": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 30
+                  }
+                }
+              },
+              "performedBy": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "productId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "quantity": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/numeric@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                }
+              },
+              "referenceId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "referenceType": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 30
+                  }
+                }
+              },
+              "toLocationId": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "fromLocation": {
+                "cardinality": "N:1",
+                "nullable": true,
+                "on": {
+                  "localFields": [
+                    "fromLocationId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Locations",
+                  "namespace": "public"
+                }
+              },
+              "product": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "productId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Products",
+                  "namespace": "public"
+                }
+              },
+              "toLocation": {
+                "cardinality": "N:1",
+                "nullable": true,
+                "on": {
+                  "localFields": [
+                    "toLocationId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Locations",
+                  "namespace": "public"
+                }
+              },
+              "users": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "performedBy"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Users",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "fromLocationId": {
+                  "column": "from_location_id"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "operationType": {
+                  "column": "operation_type"
+                },
+                "performedBy": {
+                  "column": "performed_by"
+                },
+                "productId": {
+                  "column": "product_id"
+                },
+                "quantity": {
+                  "column": "quantity"
+                },
+                "referenceId": {
+                  "column": "reference_id"
+                },
+                "referenceType": {
+                  "column": "reference_type"
+                },
+                "toLocationId": {
+                  "column": "to_location_id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "stock_ledger"
+            }
+          },
+          "Suppliers": {
+            "fields": {
+              "address": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "email": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "isActive": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/bool@1",
+                  "kind": "scalar"
+                }
+              },
+              "name": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 150
+                  }
+                }
+              },
+              "phone": {
+                "nullable": true,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 30
+                  }
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "receipts": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "supplierId"
+                  ]
+                },
+                "to": {
+                  "model": "Receipts",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "address": {
+                  "column": "address"
+                },
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "email": {
+                  "column": "email"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "isActive": {
+                  "column": "is_active"
+                },
+                "name": {
+                  "column": "name"
+                },
+                "phone": {
+                  "column": "phone"
+                },
+                "updatedAt": {
+                  "column": "updated_at"
+                }
+              },
+              "namespaceId": "public",
+              "table": "suppliers"
+            }
+          },
+          "TransferItems": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "fromLocationId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "productId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "quantity": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/numeric@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                }
+              },
+              "toLocationId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "transferId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "fromLocation": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "fromLocationId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Locations",
+                  "namespace": "public"
+                }
+              },
+              "product": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "productId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Products",
+                  "namespace": "public"
+                }
+              },
+              "toLocation": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "toLocationId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Locations",
+                  "namespace": "public"
+                }
+              },
+              "transfer": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "transferId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Transfers",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "fromLocationId": {
+                  "column": "from_location_id"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "productId": {
+                  "column": "product_id"
+                },
+                "quantity": {
+                  "column": "quantity"
+                },
+                "toLocationId": {
+                  "column": "to_location_id"
+                },
+                "transferId": {
+                  "column": "transfer_id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "transfer_items"
+            }
+          },
+          "Transfers": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdBy": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "notes": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "reference": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 50
+                  }
+                }
+              },
+              "status": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/enum@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "typeName": "operation_status"
+                  }
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "validatedAt": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "validatedBy": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "transferItems": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "transferId"
+                  ]
+                },
+                "to": {
+                  "model": "TransferItems",
+                  "namespace": "public"
+                }
+              },
+              "users": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "createdBy"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Users",
+                  "namespace": "public"
+                }
+              },
+              "usersUsers": {
+                "cardinality": "N:1",
+                "nullable": true,
+                "on": {
+                  "localFields": [
+                    "validatedBy"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Users",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "createdBy": {
+                  "column": "created_by"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "notes": {
+                  "column": "notes"
+                },
+                "reference": {
+                  "column": "reference"
+                },
+                "status": {
+                  "column": "status"
+                },
+                "updatedAt": {
+                  "column": "updated_at"
+                },
+                "validatedAt": {
+                  "column": "validated_at"
+                },
+                "validatedBy": {
+                  "column": "validated_by"
+                }
+              },
+              "namespaceId": "public",
+              "table": "transfers"
+            }
+          },
+          "Units": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "name": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 50
+                  }
+                }
+              },
+              "symbol": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 20
+                  }
+                }
+              }
+            },
+            "relations": {
+              "products": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "unitId"
+                  ]
+                },
+                "to": {
+                  "model": "Products",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "name": {
+                  "column": "name"
+                },
+                "symbol": {
+                  "column": "symbol"
+                }
+              },
+              "namespaceId": "public",
+              "table": "units"
+            }
+          },
+          "Users": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "email": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "isActive": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/bool@1",
+                  "kind": "scalar"
+                }
+              },
+              "name": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 120
+                  }
+                }
+              },
+              "passwordHash": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "roleId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "warehouseId": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "adjustments": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "createdBy"
+                  ]
+                },
+                "to": {
+                  "model": "Adjustments",
+                  "namespace": "public"
+                }
+              },
+              "adjustmentsAdjustments": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "validatedBy"
+                  ]
+                },
+                "to": {
+                  "model": "Adjustments",
+                  "namespace": "public"
+                }
+              },
+              "deliveryOrders": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "createdBy"
+                  ]
+                },
+                "to": {
+                  "model": "DeliveryOrders",
+                  "namespace": "public"
+                }
+              },
+              "deliveryOrdersDeliveryOrders": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "validatedBy"
+                  ]
+                },
+                "to": {
+                  "model": "DeliveryOrders",
+                  "namespace": "public"
+                }
+              },
+              "passwordResetOtps": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "userId"
+                  ]
+                },
+                "to": {
+                  "model": "PasswordResetOtps",
+                  "namespace": "public"
+                }
+              },
+              "receipts": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "createdBy"
+                  ]
+                },
+                "to": {
+                  "model": "Receipts",
+                  "namespace": "public"
+                }
+              },
+              "receiptsReceipts": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "validatedBy"
+                  ]
+                },
+                "to": {
+                  "model": "Receipts",
+                  "namespace": "public"
+                }
+              },
+              "role": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "roleId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Roles",
+                  "namespace": "public"
+                }
+              },
+              "stockLedgers": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "performedBy"
+                  ]
+                },
+                "to": {
+                  "model": "StockLedger",
+                  "namespace": "public"
+                }
+              },
+              "transfers": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "createdBy"
+                  ]
+                },
+                "to": {
+                  "model": "Transfers",
+                  "namespace": "public"
+                }
+              },
+              "transfersTransfers": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "validatedBy"
+                  ]
+                },
+                "to": {
+                  "model": "Transfers",
+                  "namespace": "public"
+                }
+              },
+              "warehouse": {
+                "cardinality": "N:1",
+                "nullable": true,
+                "on": {
+                  "localFields": [
+                    "warehouseId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Warehouses",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "email": {
+                  "column": "email"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "isActive": {
+                  "column": "is_active"
+                },
+                "name": {
+                  "column": "name"
+                },
+                "passwordHash": {
+                  "column": "password_hash"
+                },
+                "roleId": {
+                  "column": "role_id"
+                },
+                "updatedAt": {
+                  "column": "updated_at"
+                },
+                "warehouseId": {
+                  "column": "warehouse_id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "users"
+            }
+          },
+          "Warehouses": {
+            "fields": {
+              "address": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "code": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 50
+                  }
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "isActive": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/bool@1",
+                  "kind": "scalar"
+                }
+              },
+              "name": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 120
+                  }
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "deliveryOrders": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "warehouseId"
+                  ]
+                },
+                "to": {
+                  "model": "DeliveryOrders",
+                  "namespace": "public"
+                }
+              },
+              "locations": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "warehouseId"
+                  ]
+                },
+                "to": {
+                  "model": "Locations",
+                  "namespace": "public"
+                }
+              },
+              "receipts": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "warehouseId"
+                  ]
+                },
+                "to": {
+                  "model": "Receipts",
+                  "namespace": "public"
+                }
+              },
+              "users": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "warehouseId"
+                  ]
+                },
+                "to": {
+                  "model": "Users",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "address": {
+                  "column": "address"
+                },
+                "code": {
+                  "column": "code"
+                },
+                "createdAt": {
+                  "column": "created_at"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "isActive": {
+                  "column": "is_active"
+                },
+                "name": {
+                  "column": "name"
+                },
+                "updatedAt": {
+                  "column": "updated_at"
+                }
+              },
+              "namespaceId": "public",
+              "table": "warehouses"
+            }
+          }
+        }
+      }
+    }
+  },
+  "storage": {
+    "namespaces": {
+      "public": {
+        "entries": {
+          "native_enum": {
+            "operation_status": {
+              "kind": "postgres-enum",
+              "members": [
+                "draft",
+                "waiting",
+                "ready",
+                "done",
+                "cancelled"
+              ],
+              "typeName": "operation_status"
+            }
+          },
+          "table": {
+            "adjustment_items": {
+              "checks": [
+                {
+                  "expression": "(counted_quantity >= (0)::numeric)",
+                  "name": "adjustment_items_counted_quantity_check"
+                },
+                {
+                  "expression": "(system_quantity >= (0)::numeric)",
+                  "name": "adjustment_items_system_quantity_check"
+                }
+              ],
+              "columns": {
+                "adjustment_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "counted_quantity": {
+                  "codecId": "pg/numeric@1",
+                  "nativeType": "numeric",
+                  "nullable": false,
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                },
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "difference": {
+                  "codecId": "pg/numeric@1",
+                  "nativeType": "numeric",
+                  "nullable": true,
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "location_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "product_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "system_quantity": {
+                  "codecId": "pg/numeric@1",
+                  "nativeType": "numeric",
+                  "nullable": false,
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "adjustment_items_adjustment_id_fkey",
+                  "onDelete": "cascade",
+                  "source": {
+                    "columns": [
+                      "adjustment_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "adjustment_items"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "adjustments"
+                  }
+                },
+                {
+                  "name": "adjustment_items_location_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "location_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "adjustment_items"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "locations"
+                  }
+                },
+                {
+                  "name": "adjustment_items_product_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "product_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "adjustment_items"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "products"
+                  }
+                }
+              ],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "adjustment_items_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "adjustment_id",
+                    "product_id",
+                    "location_id"
+                  ],
+                  "name": "adjustment_items_adjustment_id_product_id_location_id_key"
+                }
+              ]
+            },
+            "adjustments": {
+              "columns": {
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "created_by": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "reason": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "reference": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 50
+                  }
+                },
+                "status": {
+                  "codecId": "pg/enum@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": "draft"
+                  },
+                  "nativeType": "operation_status",
+                  "nullable": false,
+                  "typeParams": {
+                    "typeName": "operation_status"
+                  },
+                  "valueSet": {
+                    "entityKind": "valueSet",
+                    "entityName": "OperationStatus",
+                    "namespaceId": "public",
+                    "plane": "storage"
+                  }
+                },
+                "updated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "validated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "nativeType": "timestamptz",
+                  "nullable": true
+                },
+                "validated_by": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": true
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "adjustments_created_by_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "created_by"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "adjustments"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "users"
+                  }
+                },
+                {
+                  "name": "adjustments_validated_by_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "validated_by"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "adjustments"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "users"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "created_at"
+                  ],
+                  "name": "idx_adjustments_created_at",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "status"
+                  ],
+                  "name": "idx_adjustments_status",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "adjustments_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "reference"
+                  ],
+                  "name": "adjustments_reference_key"
+                }
+              ]
+            },
+            "categories": {
+              "columns": {
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "description": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "name": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 100
+                  }
+                },
+                "updated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "categories_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "name"
+                  ],
+                  "name": "categories_name_key"
+                }
+              ]
+            },
+            "customers": {
+              "columns": {
+                "address": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "email": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "is_active": {
+                  "codecId": "pg/bool@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": true
+                  },
+                  "nativeType": "bool",
+                  "nullable": false
+                },
+                "name": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 150
+                  }
+                },
+                "phone": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": true,
+                  "typeParams": {
+                    "length": 30
+                  }
+                },
+                "updated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "customers_pkey"
+              },
+              "uniques": []
+            },
+            "delivery_items": {
+              "checks": [
+                {
+                  "expression": "(quantity > (0)::numeric)",
+                  "name": "delivery_items_quantity_check"
+                }
+              ],
+              "columns": {
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "delivery_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "location_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "product_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "quantity": {
+                  "codecId": "pg/numeric@1",
+                  "nativeType": "numeric",
+                  "nullable": false,
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "delivery_items_delivery_id_fkey",
+                  "onDelete": "cascade",
+                  "source": {
+                    "columns": [
+                      "delivery_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "delivery_items"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "delivery_orders"
+                  }
+                },
+                {
+                  "name": "delivery_items_location_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "location_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "delivery_items"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "locations"
+                  }
+                },
+                {
+                  "name": "delivery_items_product_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "product_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "delivery_items"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "products"
+                  }
+                }
+              ],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "delivery_items_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "delivery_id",
+                    "product_id",
+                    "location_id"
+                  ],
+                  "name": "delivery_items_delivery_id_product_id_location_id_key"
+                }
+              ]
+            },
+            "delivery_orders": {
+              "columns": {
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "created_by": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "customer_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "notes": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "reference": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 50
+                  }
+                },
+                "status": {
+                  "codecId": "pg/enum@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": "draft"
+                  },
+                  "nativeType": "operation_status",
+                  "nullable": false,
+                  "typeParams": {
+                    "typeName": "operation_status"
+                  },
+                  "valueSet": {
+                    "entityKind": "valueSet",
+                    "entityName": "OperationStatus",
+                    "namespaceId": "public",
+                    "plane": "storage"
+                  }
+                },
+                "updated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "validated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "nativeType": "timestamptz",
+                  "nullable": true
+                },
+                "validated_by": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": true
+                },
+                "warehouse_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "delivery_orders_created_by_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "created_by"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "delivery_orders"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "users"
+                  }
+                },
+                {
+                  "name": "delivery_orders_customer_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "customer_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "delivery_orders"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "customers"
+                  }
+                },
+                {
+                  "name": "delivery_orders_validated_by_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "validated_by"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "delivery_orders"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "users"
+                  }
+                },
+                {
+                  "name": "delivery_orders_warehouse_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "warehouse_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "delivery_orders"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "warehouses"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "created_at"
+                  ],
+                  "name": "idx_delivery_created_at",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "customer_id"
+                  ],
+                  "name": "idx_delivery_customer",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "status"
+                  ],
+                  "name": "idx_delivery_status",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "delivery_orders_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "reference"
+                  ],
+                  "name": "delivery_orders_reference_key"
+                }
+              ]
+            },
+            "locations": {
+              "columns": {
+                "code": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 50
+                  }
+                },
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "description": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "is_active": {
+                  "codecId": "pg/bool@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": true
+                  },
+                  "nativeType": "bool",
+                  "nullable": false
+                },
+                "name": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 120
+                  }
+                },
+                "updated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "warehouse_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "locations_warehouse_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "warehouse_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "locations"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "warehouses"
+                  }
+                }
+              ],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "locations_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "warehouse_id",
+                    "code"
+                  ],
+                  "name": "locations_warehouse_id_code_key"
+                },
+                {
+                  "columns": [
+                    "warehouse_id",
+                    "name"
+                  ],
+                  "name": "locations_warehouse_id_name_key"
+                }
+              ]
+            },
+            "password_reset_otps": {
+              "checks": [
+                {
+                  "expression": "(attempts >= 0)",
+                  "name": "password_reset_otps_attempts_check"
+                }
+              ],
+              "columns": {
+                "attempts": {
+                  "codecId": "pg/int4@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  "nativeType": "int4",
+                  "nullable": false
+                },
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "expires_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "otp_hash": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "used_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "nativeType": "timestamptz",
+                  "nullable": true
+                },
+                "user_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "password_reset_otps_user_id_fkey",
+                  "onDelete": "cascade",
+                  "source": {
+                    "columns": [
+                      "user_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "password_reset_otps"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "users"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "expires_at"
+                  ],
+                  "name": "idx_password_reset_otps_expiry",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "user_id"
+                  ],
+                  "name": "idx_password_reset_otps_user",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "password_reset_otps_pkey"
+              },
+              "uniques": []
+            },
+            "permissions": {
+              "columns": {
+                "code": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 100
+                  }
+                },
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "description": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "permissions_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "code"
+                  ],
+                  "name": "permissions_code_key"
+                }
+              ]
+            },
+            "products": {
+              "columns": {
+                "category_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "is_active": {
+                  "codecId": "pg/bool@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": true
+                  },
+                  "nativeType": "bool",
+                  "nullable": false
+                },
+                "name": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 150
+                  }
+                },
+                "sku": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 80
+                  }
+                },
+                "unit_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "updated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "products_category_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "category_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "products"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "categories"
+                  }
+                },
+                {
+                  "name": "products_unit_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "unit_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "products"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "units"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "category_id"
+                  ],
+                  "name": "idx_products_category",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "name"
+                  ],
+                  "name": "idx_products_name",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "sku"
+                  ],
+                  "name": "idx_products_sku",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "products_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "sku"
+                  ],
+                  "name": "products_sku_key"
+                }
+              ]
+            },
+            "receipt_items": {
+              "checks": [
+                {
+                  "expression": "(quantity > (0)::numeric)",
+                  "name": "receipt_items_quantity_check"
+                }
+              ],
+              "columns": {
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "location_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "product_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "quantity": {
+                  "codecId": "pg/numeric@1",
+                  "nativeType": "numeric",
+                  "nullable": false,
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                },
+                "receipt_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "receipt_items_location_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "location_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "receipt_items"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "locations"
+                  }
+                },
+                {
+                  "name": "receipt_items_product_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "product_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "receipt_items"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "products"
+                  }
+                },
+                {
+                  "name": "receipt_items_receipt_id_fkey",
+                  "onDelete": "cascade",
+                  "source": {
+                    "columns": [
+                      "receipt_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "receipt_items"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "receipts"
+                  }
+                }
+              ],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "receipt_items_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "receipt_id",
+                    "product_id",
+                    "location_id"
+                  ],
+                  "name": "receipt_items_receipt_id_product_id_location_id_key"
+                }
+              ]
+            },
+            "receipts": {
+              "columns": {
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "created_by": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "notes": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "reference": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 50
+                  }
+                },
+                "status": {
+                  "codecId": "pg/enum@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": "draft"
+                  },
+                  "nativeType": "operation_status",
+                  "nullable": false,
+                  "typeParams": {
+                    "typeName": "operation_status"
+                  },
+                  "valueSet": {
+                    "entityKind": "valueSet",
+                    "entityName": "OperationStatus",
+                    "namespaceId": "public",
+                    "plane": "storage"
+                  }
+                },
+                "supplier_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "updated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "validated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "nativeType": "timestamptz",
+                  "nullable": true
+                },
+                "validated_by": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": true
+                },
+                "warehouse_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "receipts_created_by_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "created_by"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "receipts"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "users"
+                  }
+                },
+                {
+                  "name": "receipts_supplier_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "supplier_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "receipts"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "suppliers"
+                  }
+                },
+                {
+                  "name": "receipts_validated_by_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "validated_by"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "receipts"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "users"
+                  }
+                },
+                {
+                  "name": "receipts_warehouse_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "warehouse_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "receipts"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "warehouses"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "created_at"
+                  ],
+                  "name": "idx_receipts_created_at",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "status"
+                  ],
+                  "name": "idx_receipts_status",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "supplier_id"
+                  ],
+                  "name": "idx_receipts_supplier",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "receipts_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "reference"
+                  ],
+                  "name": "receipts_reference_key"
+                }
+              ]
+            },
+            "reorder_rules": {
+              "checks": [
+                {
+                  "expression": "((maximum_quantity IS NULL) OR (maximum_quantity >= minimum_quantity))",
+                  "name": "reorder_rules_check"
+                },
+                {
+                  "expression": "(minimum_quantity >= (0)::numeric)",
+                  "name": "reorder_rules_minimum_quantity_check"
+                },
+                {
+                  "expression": "(reorder_quantity > (0)::numeric)",
+                  "name": "reorder_rules_reorder_quantity_check"
+                }
+              ],
+              "columns": {
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "is_active": {
+                  "codecId": "pg/bool@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": true
+                  },
+                  "nativeType": "bool",
+                  "nullable": false
+                },
+                "location_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "maximum_quantity": {
+                  "codecId": "pg/numeric@1",
+                  "nativeType": "numeric",
+                  "nullable": true,
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                },
+                "minimum_quantity": {
+                  "codecId": "pg/numeric@1",
+                  "nativeType": "numeric",
+                  "nullable": false,
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                },
+                "product_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "reorder_quantity": {
+                  "codecId": "pg/numeric@1",
+                  "nativeType": "numeric",
+                  "nullable": false,
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                },
+                "updated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "reorder_rules_location_id_fkey",
+                  "onDelete": "cascade",
+                  "source": {
+                    "columns": [
+                      "location_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "reorder_rules"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "locations"
+                  }
+                },
+                {
+                  "name": "reorder_rules_product_id_fkey",
+                  "onDelete": "cascade",
+                  "source": {
+                    "columns": [
+                      "product_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "reorder_rules"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "products"
+                  }
+                }
+              ],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "reorder_rules_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "product_id",
+                    "location_id"
+                  ],
+                  "name": "reorder_rules_product_id_location_id_key"
+                }
+              ]
+            },
+            "role_permissions": {
+              "columns": {
+                "permission_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "role_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "role_permissions_permission_id_fkey",
+                  "onDelete": "cascade",
+                  "source": {
+                    "columns": [
+                      "permission_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "role_permissions"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "permissions"
+                  }
+                },
+                {
+                  "name": "role_permissions_role_id_fkey",
+                  "onDelete": "cascade",
+                  "source": {
+                    "columns": [
+                      "role_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "role_permissions"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "roles"
+                  }
+                }
+              ],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "role_id",
+                  "permission_id"
+                ],
+                "name": "role_permissions_pkey"
+              },
+              "uniques": []
+            },
+            "roles": {
+              "columns": {
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "description": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "name": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 50
+                  }
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "roles_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "name"
+                  ],
+                  "name": "roles_name_key"
+                }
+              ]
+            },
+            "stock": {
+              "checks": [
+                {
+                  "expression": "(reserved_quantity <= quantity)",
+                  "name": "chk_reserved_not_greater_than_stock"
+                },
+                {
+                  "expression": "(reserved_quantity >= (0)::numeric)",
+                  "name": "chk_reserved_quantity"
+                },
+                {
+                  "expression": "(quantity >= (0)::numeric)",
+                  "name": "chk_stock_quantity"
+                }
+              ],
+              "columns": {
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "location_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "product_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "quantity": {
+                  "codecId": "pg/numeric@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": "0"
+                  },
+                  "nativeType": "numeric",
+                  "nullable": false,
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                },
+                "reserved_quantity": {
+                  "codecId": "pg/numeric@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": "0"
+                  },
+                  "nativeType": "numeric",
+                  "nullable": false,
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                },
+                "updated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "stock_location_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "location_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "stock"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "locations"
+                  }
+                },
+                {
+                  "name": "stock_product_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "product_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "stock"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "products"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "location_id"
+                  ],
+                  "name": "idx_stock_location",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "product_id"
+                  ],
+                  "name": "idx_stock_product",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "product_id",
+                    "location_id"
+                  ],
+                  "name": "idx_stock_product_location",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "stock_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "product_id",
+                    "location_id"
+                  ],
+                  "name": "uq_stock_product_location"
+                }
+              ]
+            },
+            "stock_ledger": {
+              "checks": [
+                {
+                  "expression": "((operation_type)::text = ANY ((ARRAY['receipt'::character varying, 'delivery'::character varying, 'transfer'::character varying, 'adjustment'::character varying, 'initial_stock'::character varying])::text[]))",
+                  "name": "stock_ledger_operation_type_check"
+                },
+                {
+                  "expression": "(quantity > (0)::numeric)",
+                  "name": "stock_ledger_quantity_check"
+                }
+              ],
+              "columns": {
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "from_location_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": true
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "operation_type": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 30
+                  }
+                },
+                "performed_by": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "product_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "quantity": {
+                  "codecId": "pg/numeric@1",
+                  "nativeType": "numeric",
+                  "nullable": false,
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                },
+                "reference_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "reference_type": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 30
+                  }
+                },
+                "to_location_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": true
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "stock_ledger_from_location_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "from_location_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "stock_ledger"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "locations"
+                  }
+                },
+                {
+                  "name": "stock_ledger_performed_by_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "performed_by"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "stock_ledger"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "users"
+                  }
+                },
+                {
+                  "name": "stock_ledger_product_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "product_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "stock_ledger"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "products"
+                  }
+                },
+                {
+                  "name": "stock_ledger_to_location_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "to_location_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "stock_ledger"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "locations"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "created_at"
+                  ],
+                  "name": "idx_ledger_created_at",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "from_location_id"
+                  ],
+                  "name": "idx_ledger_from_location",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "product_id"
+                  ],
+                  "name": "idx_ledger_product",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "reference_type",
+                    "reference_id"
+                  ],
+                  "name": "idx_ledger_reference",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "to_location_id"
+                  ],
+                  "name": "idx_ledger_to_location",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "stock_ledger_pkey"
+              },
+              "uniques": []
+            },
+            "suppliers": {
+              "columns": {
+                "address": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "email": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "is_active": {
+                  "codecId": "pg/bool@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": true
+                  },
+                  "nativeType": "bool",
+                  "nullable": false
+                },
+                "name": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 150
+                  }
+                },
+                "phone": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": true,
+                  "typeParams": {
+                    "length": 30
+                  }
+                },
+                "updated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "suppliers_pkey"
+              },
+              "uniques": []
+            },
+            "transfer_items": {
+              "checks": [
+                {
+                  "expression": "(from_location_id <> to_location_id)",
+                  "name": "transfer_items_check"
+                },
+                {
+                  "expression": "(quantity > (0)::numeric)",
+                  "name": "transfer_items_quantity_check"
+                }
+              ],
+              "columns": {
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "from_location_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "product_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "quantity": {
+                  "codecId": "pg/numeric@1",
+                  "nativeType": "numeric",
+                  "nullable": false,
+                  "typeParams": {
+                    "precision": 14,
+                    "scale": 3
+                  }
+                },
+                "to_location_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "transfer_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "transfer_items_from_location_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "from_location_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "transfer_items"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "locations"
+                  }
+                },
+                {
+                  "name": "transfer_items_product_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "product_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "transfer_items"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "products"
+                  }
+                },
+                {
+                  "name": "transfer_items_to_location_id_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "to_location_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "transfer_items"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "locations"
+                  }
+                },
+                {
+                  "name": "transfer_items_transfer_id_fkey",
+                  "onDelete": "cascade",
+                  "source": {
+                    "columns": [
+                      "transfer_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "transfer_items"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "transfers"
+                  }
+                }
+              ],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "transfer_items_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "transfer_id",
+                    "product_id",
+                    "from_location_id",
+                    "to_location_id"
+                  ],
+                  "name": "transfer_items_transfer_id_product_id_from_location_id_to_l_key"
+                }
+              ]
+            },
+            "transfers": {
+              "columns": {
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "created_by": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "notes": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "reference": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 50
+                  }
+                },
+                "status": {
+                  "codecId": "pg/enum@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": "draft"
+                  },
+                  "nativeType": "operation_status",
+                  "nullable": false,
+                  "typeParams": {
+                    "typeName": "operation_status"
+                  },
+                  "valueSet": {
+                    "entityKind": "valueSet",
+                    "entityName": "OperationStatus",
+                    "namespaceId": "public",
+                    "plane": "storage"
+                  }
+                },
+                "updated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "validated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "nativeType": "timestamptz",
+                  "nullable": true
+                },
+                "validated_by": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": true
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "transfers_created_by_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "created_by"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "transfers"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "users"
+                  }
+                },
+                {
+                  "name": "transfers_validated_by_fkey",
+                  "onDelete": "restrict",
+                  "source": {
+                    "columns": [
+                      "validated_by"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "transfers"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "users"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "created_at"
+                  ],
+                  "name": "idx_transfers_created_at",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "status"
+                  ],
+                  "name": "idx_transfers_status",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "transfers_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "reference"
+                  ],
+                  "name": "transfers_reference_key"
+                }
+              ]
+            },
+            "units": {
+              "columns": {
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "name": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 50
+                  }
+                },
+                "symbol": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 20
+                  }
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "units_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "name"
+                  ],
+                  "name": "units_name_key"
+                },
+                {
+                  "columns": [
+                    "symbol"
+                  ],
+                  "name": "units_symbol_key"
+                }
+              ]
+            },
+            "users": {
+              "columns": {
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "email": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "is_active": {
+                  "codecId": "pg/bool@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": true
+                  },
+                  "nativeType": "bool",
+                  "nullable": false
+                },
+                "name": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 120
+                  }
+                },
+                "password_hash": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "role_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "updated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "warehouse_id": {
+                  "codecId": "pg/int8@1",
+                  "nativeType": "int8",
+                  "nullable": true
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "fk_users_warehouse",
+                  "onDelete": "setNull",
+                  "source": {
+                    "columns": [
+                      "warehouse_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "users"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "warehouses"
+                  }
+                },
+                {
+                  "name": "users_role_id_fkey",
+                  "source": {
+                    "columns": [
+                      "role_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "users"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "roles"
+                  }
+                }
+              ],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "users_pkey"
+              },
+              "uniques": []
+            },
+            "warehouses": {
+              "columns": {
+                "address": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "code": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 50
+                  }
+                },
+                "created_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int8",
+                  "nullable": false
+                },
+                "is_active": {
+                  "codecId": "pg/bool@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": true
+                  },
+                  "nativeType": "bool",
+                  "nullable": false
+                },
+                "name": {
+                  "codecId": "sql/varchar@1",
+                  "nativeType": "character varying",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 120
+                  }
+                },
+                "updated_at": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "warehouses_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "code"
+                  ],
+                  "name": "warehouses_code_key"
+                }
+              ]
+            }
+          },
+          "valueSet": {
+            "OperationStatus": {
+              "kind": "valueSet",
+              "values": [
+                "draft",
+                "waiting",
+                "ready",
+                "done",
+                "cancelled"
+              ]
+            }
+          }
+        },
+        "id": "public",
+        "kind": "postgres-schema"
+      }
+    },
+    "storageHash": "bb673f53894fbdaa6ce32662cbf46d481851d11de02ac78bbabc2be7288d50a5"
+  },
+  "capabilities": {
+    "postgres": {
+      "distinctOn": true,
+      "jsonAgg": true,
+      "lateral": true,
+      "limit": true,
+      "orderBy": true,
+      "returning": true
+    },
+    "sql": {
+      "checkConstraint": true,
+      "defaultInInsert": true,
+      "enums": true,
+      "insertOnConflictSkip": true,
+      "insertOnConflictWithoutTarget": true,
+      "lateral": true,
+      "returning": true,
+      "scalarList": true
+    }
+  },
+  "extensions": {},
+  "meta": {},
+  "_generated": {
+    "warning": "⚠️  GENERATED FILE - DO NOT EDIT",
+    "message": "This file is automatically generated by \"prisma contract emit\".",
+    "regenerate": "To regenerate, run: prisma contract emit"
+  }
+}

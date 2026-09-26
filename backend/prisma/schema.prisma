@@ -1,0 +1,424 @@
+// use prisma-8
+// Contract inferred from the live database schema. Edit as needed, then run `prisma contract emit`.
+
+namespace public {
+  model Roles {
+    id              BigInt            @id(map: "roles_pkey") @default(autoincrement())
+    name            VarChar(50)       @unique(map: "roles_name_key")
+    description     String?
+    createdAt       Timestamptz       @default(now()) @map("created_at")
+    rolePermissions RolePermissions[]
+    users           Users[]
+
+    @@map("roles")
+  }
+
+  model Warehouses {
+    id             BigInt           @id(map: "warehouses_pkey") @default(autoincrement())
+    name           VarChar(120)
+    code           VarChar(50)      @unique(map: "warehouses_code_key")
+    address        String?
+    isActive       Boolean          @default(true) @map("is_active")
+    createdAt      Timestamptz      @default(now()) @map("created_at")
+    updatedAt      Timestamptz      @default(now()) @map("updated_at")
+    deliveryOrders DeliveryOrders[]
+    locations      Locations[]
+    receipts       Receipts[]
+    users          Users[]
+
+    @@map("warehouses")
+  }
+
+  model Users {
+    id                           BigInt                @id(map: "users_pkey") @default(autoincrement())
+    name                         VarChar(120)
+    email                        String
+    passwordHash                 String                @map("password_hash")
+    roleId                       BigInt                @map("role_id")
+    warehouseId                  BigInt?               @map("warehouse_id")
+    isActive                     Boolean               @default(true) @map("is_active")
+    createdAt                    Timestamptz           @default(now()) @map("created_at")
+    updatedAt                    Timestamptz           @default(now()) @map("updated_at")
+    passwordResetOtps            PasswordResetOtps[]
+    stockLedgers                 StockLedger[]
+    adjustments                  Adjustments[]         @relation(name: "adjustments_created_by_fkey")
+    adjustmentsAdjustments       Adjustments[]         @relation(name: "adjustments_validated_by_fkey")
+    deliveryOrders               DeliveryOrders[]      @relation(name: "delivery_orders_created_by_fkey")
+    deliveryOrdersDeliveryOrders DeliveryOrders[]      @relation(name: "delivery_orders_validated_by_fkey")
+    receipts                     Receipts[]            @relation(name: "receipts_created_by_fkey")
+    receiptsReceipts             Receipts[]            @relation(name: "receipts_validated_by_fkey")
+    transfers                    Transfers[]           @relation(name: "transfers_created_by_fkey")
+    transfersTransfers           Transfers[]           @relation(name: "transfers_validated_by_fkey")
+    warehouse                    Warehouses?           @relation(fields: [warehouseId], references: [id], onDelete: SetNull, map: "fk_users_warehouse", index: false)
+    role                         Roles                 @relation(fields: [roleId], references: [id], map: "users_role_id_fkey", index: false)
+
+    @@map("users")
+  }
+
+  model Adjustments {
+    id              BigInt                   @id(map: "adjustments_pkey") @default(autoincrement())
+    reference       VarChar(50)              @unique(map: "adjustments_reference_key")
+    status          pg.enum(OperationStatus) @default("draft")
+    reason          String
+    createdBy       BigInt                   @map("created_by")
+    validatedBy     BigInt?                  @map("validated_by")
+    validatedAt     Timestamptz?             @map("validated_at")
+    createdAt       Timestamptz              @default(now()) @map("created_at")
+    updatedAt       Timestamptz              @default(now()) @map("updated_at")
+    adjustmentItems AdjustmentItems[]
+    users           Users                    @relation(name: "adjustments_created_by_fkey", fields: [createdBy], references: [id], onDelete: Restrict, map: "adjustments_created_by_fkey", index: false)
+    usersUsers      Users?                   @relation(name: "adjustments_validated_by_fkey", fields: [validatedBy], references: [id], onDelete: Restrict, map: "adjustments_validated_by_fkey", index: false)
+
+    @@index([createdAt], map: "idx_adjustments_created_at")
+    @@index([status], map: "idx_adjustments_status")
+    @@map("adjustments")
+  }
+
+  model Locations {
+    id                         BigInt            @id(map: "locations_pkey") @default(autoincrement())
+    warehouseId                BigInt            @map("warehouse_id")
+    name                       VarChar(120)
+    code                       VarChar(50)
+    description                String?
+    isActive                   Boolean           @default(true) @map("is_active")
+    createdAt                  Timestamptz       @default(now()) @map("created_at")
+    updatedAt                  Timestamptz       @default(now()) @map("updated_at")
+    adjustmentItems            AdjustmentItems[]
+    deliveryItems              DeliveryItems[]
+    receiptItems               ReceiptItems[]
+    reorderRules               ReorderRules[]
+    stocks                     Stock[]
+    warehouse                  Warehouses        @relation(fields: [warehouseId], references: [id], onDelete: Restrict, map: "locations_warehouse_id_fkey", index: false)
+    stockLedgers               StockLedger[]     @relation(name: "stock_ledger_from_location_id_fkey")
+    stockLedgersStockLedger    StockLedger[]     @relation(name: "stock_ledger_to_location_id_fkey")
+    transferItems              TransferItems[]   @relation(name: "transfer_items_from_location_id_fkey")
+    transferItemsTransferItems TransferItems[]   @relation(name: "transfer_items_to_location_id_fkey")
+
+    @@unique([warehouseId, code], map: "locations_warehouse_id_code_key")
+    @@unique([warehouseId, name], map: "locations_warehouse_id_name_key")
+    @@map("locations")
+  }
+
+  model Categories {
+    id          BigInt       @id(map: "categories_pkey") @default(autoincrement())
+    name        VarChar(100) @unique(map: "categories_name_key")
+    description String?
+    createdAt   Timestamptz  @default(now()) @map("created_at")
+    updatedAt   Timestamptz  @default(now()) @map("updated_at")
+    products    Products[]
+
+    @@map("categories")
+  }
+
+  model Units {
+    id        BigInt      @id(map: "units_pkey") @default(autoincrement())
+    name      VarChar(50) @unique(map: "units_name_key")
+    symbol    VarChar(20) @unique(map: "units_symbol_key")
+    createdAt Timestamptz @default(now()) @map("created_at")
+    products  Products[]
+
+    @@map("units")
+  }
+
+  model Products {
+    id              BigInt            @id(map: "products_pkey") @default(autoincrement())
+    name            VarChar(150)
+    sku             VarChar(80)       @unique(map: "products_sku_key")
+    categoryId      BigInt            @map("category_id")
+    unitId          BigInt            @map("unit_id")
+    isActive        Boolean           @default(true) @map("is_active")
+    createdAt       Timestamptz       @default(now()) @map("created_at")
+    updatedAt       Timestamptz       @default(now()) @map("updated_at")
+    adjustmentItems AdjustmentItems[]
+    deliveryItems   DeliveryItems[]
+    receiptItems    ReceiptItems[]
+    reorderRules    ReorderRules[]
+    stocks          Stock[]
+    stockLedgers    StockLedger[]
+    transferItems   TransferItems[]
+    category        Categories        @relation(fields: [categoryId], references: [id], onDelete: Restrict, map: "products_category_id_fkey")
+    unit            Units             @relation(fields: [unitId], references: [id], onDelete: Restrict, map: "products_unit_id_fkey", index: false)
+
+    @@index([categoryId], map: "idx_products_category")
+    @@index([name], map: "idx_products_name")
+    @@index([sku], map: "idx_products_sku")
+    @@map("products")
+  }
+
+  model AdjustmentItems {
+    id              BigInt          @id(map: "adjustment_items_pkey") @default(autoincrement())
+    adjustmentId    BigInt          @map("adjustment_id")
+    productId       BigInt          @map("product_id")
+    locationId      BigInt          @map("location_id")
+    systemQuantity  Numeric(14, 3)  @map("system_quantity")
+    countedQuantity Numeric(14, 3)  @map("counted_quantity")
+    difference      Numeric(14, 3)?
+    createdAt       Timestamptz     @default(now()) @map("created_at")
+    adjustment      Adjustments     @relation(fields: [adjustmentId], references: [id], onDelete: Cascade, map: "adjustment_items_adjustment_id_fkey", index: false)
+    location        Locations       @relation(fields: [locationId], references: [id], onDelete: Restrict, map: "adjustment_items_location_id_fkey", index: false)
+    product         Products        @relation(fields: [productId], references: [id], onDelete: Restrict, map: "adjustment_items_product_id_fkey", index: false)
+
+    @@unique([adjustmentId, productId, locationId], map: "adjustment_items_adjustment_id_product_id_location_id_key")
+    @@check(expression: "(counted_quantity >= (0)::numeric)", map: "adjustment_items_counted_quantity_check")
+    @@check(expression: "(system_quantity >= (0)::numeric)", map: "adjustment_items_system_quantity_check")
+    @@map("adjustment_items")
+  }
+
+  model Customers {
+    id             BigInt                 @id(map: "customers_pkey") @default(autoincrement())
+    name           VarChar(150)
+    email          String?
+    phone          VarChar(30)?
+    address        String?
+    isActive       Boolean                @default(true) @map("is_active")
+    createdAt      Timestamptz            @default(now()) @map("created_at")
+    updatedAt      Timestamptz            @default(now()) @map("updated_at")
+    deliveryOrders DeliveryOrders[]
+
+    @@map("customers")
+  }
+
+  model DeliveryOrders {
+    id            BigInt                   @id(map: "delivery_orders_pkey") @default(autoincrement())
+    reference     VarChar(50)              @unique(map: "delivery_orders_reference_key")
+    customerId    BigInt                   @map("customer_id")
+    warehouseId   BigInt                   @map("warehouse_id")
+    status        pg.enum(OperationStatus) @default("draft")
+    notes         String?
+    createdBy     BigInt                   @map("created_by")
+    validatedBy   BigInt?                  @map("validated_by")
+    validatedAt   Timestamptz?             @map("validated_at")
+    createdAt     Timestamptz              @default(now()) @map("created_at")
+    updatedAt     Timestamptz              @default(now()) @map("updated_at")
+    deliveryItems DeliveryItems[]
+    users         Users                    @relation(name: "delivery_orders_created_by_fkey", fields: [createdBy], references: [id], onDelete: Restrict, map: "delivery_orders_created_by_fkey", index: false)
+    customer      Customers                @relation(fields: [customerId], references: [id], onDelete: Restrict, map: "delivery_orders_customer_id_fkey")
+    usersUsers    Users?                   @relation(name: "delivery_orders_validated_by_fkey", fields: [validatedBy], references: [id], onDelete: Restrict, map: "delivery_orders_validated_by_fkey", index: false)
+    warehouse     Warehouses               @relation(fields: [warehouseId], references: [id], onDelete: Restrict, map: "delivery_orders_warehouse_id_fkey", index: false)
+
+    @@index([createdAt], map: "idx_delivery_created_at")
+    @@index([customerId], map: "idx_delivery_customer")
+    @@index([status], map: "idx_delivery_status")
+    @@map("delivery_orders")
+  }
+
+  model DeliveryItems {
+    id         BigInt         @id(map: "delivery_items_pkey") @default(autoincrement())
+    deliveryId BigInt         @map("delivery_id")
+    productId  BigInt         @map("product_id")
+    locationId BigInt         @map("location_id")
+    quantity   Numeric(14, 3)
+    createdAt  Timestamptz    @default(now()) @map("created_at")
+    delivery   DeliveryOrders @relation(fields: [deliveryId], references: [id], onDelete: Cascade, map: "delivery_items_delivery_id_fkey", index: false)
+    location   Locations      @relation(fields: [locationId], references: [id], onDelete: Restrict, map: "delivery_items_location_id_fkey", index: false)
+    product    Products       @relation(fields: [productId], references: [id], onDelete: Restrict, map: "delivery_items_product_id_fkey", index: false)
+
+    @@unique([deliveryId, productId, locationId], map: "delivery_items_delivery_id_product_id_location_id_key")
+    @@check(expression: "(quantity > (0)::numeric)", map: "delivery_items_quantity_check")
+    @@map("delivery_items")
+  }
+
+  model PasswordResetOtps {
+    id        BigInt       @id(map: "password_reset_otps_pkey") @default(autoincrement())
+    userId    BigInt       @map("user_id")
+    otpHash   String       @map("otp_hash")
+    expiresAt Timestamptz  @map("expires_at")
+    attempts  Int          @default(0)
+    usedAt    Timestamptz? @map("used_at")
+    createdAt Timestamptz  @default(now()) @map("created_at")
+    user      Users        @relation(fields: [userId], references: [id], onDelete: Cascade, map: "password_reset_otps_user_id_fkey")
+
+    @@index([expiresAt], map: "idx_password_reset_otps_expiry")
+    @@index([userId], map: "idx_password_reset_otps_user")
+    @@check(expression: "(attempts >= 0)", map: "password_reset_otps_attempts_check")
+    @@map("password_reset_otps")
+  }
+
+  model Permissions {
+    id              BigInt            @id(map: "permissions_pkey") @default(autoincrement())
+    code            VarChar(100)      @unique(map: "permissions_code_key")
+    description     String?
+    createdAt       Timestamptz       @default(now()) @map("created_at")
+    rolePermissions RolePermissions[]
+
+    @@map("permissions")
+  }
+
+  model Suppliers {
+    id        BigInt                 @id(map: "suppliers_pkey") @default(autoincrement())
+    name      VarChar(150)
+    email     String?
+    phone     VarChar(30)?
+    address   String?
+    isActive  Boolean                @default(true) @map("is_active")
+    createdAt Timestamptz            @default(now()) @map("created_at")
+    updatedAt Timestamptz            @default(now()) @map("updated_at")
+    receipts  Receipts[]
+
+    @@map("suppliers")
+  }
+
+  model Receipts {
+    id           BigInt                   @id(map: "receipts_pkey") @default(autoincrement())
+    reference    VarChar(50)              @unique(map: "receipts_reference_key")
+    supplierId   BigInt                   @map("supplier_id")
+    warehouseId  BigInt                   @map("warehouse_id")
+    status       pg.enum(OperationStatus) @default("draft")
+    notes        String?
+    createdBy    BigInt                   @map("created_by")
+    validatedBy  BigInt?                  @map("validated_by")
+    validatedAt  Timestamptz?             @map("validated_at")
+    createdAt    Timestamptz              @default(now()) @map("created_at")
+    updatedAt    Timestamptz              @default(now()) @map("updated_at")
+    receiptItems ReceiptItems[]
+    users        Users                    @relation(name: "receipts_created_by_fkey", fields: [createdBy], references: [id], onDelete: Restrict, map: "receipts_created_by_fkey", index: false)
+    supplier     Suppliers                @relation(fields: [supplierId], references: [id], onDelete: Restrict, map: "receipts_supplier_id_fkey")
+    usersUsers   Users?                   @relation(name: "receipts_validated_by_fkey", fields: [validatedBy], references: [id], onDelete: Restrict, map: "receipts_validated_by_fkey", index: false)
+    warehouse    Warehouses               @relation(fields: [warehouseId], references: [id], onDelete: Restrict, map: "receipts_warehouse_id_fkey", index: false)
+
+    @@index([createdAt], map: "idx_receipts_created_at")
+    @@index([status], map: "idx_receipts_status")
+    @@index([supplierId], map: "idx_receipts_supplier")
+    @@map("receipts")
+  }
+
+  model ReceiptItems {
+    id         BigInt         @id(map: "receipt_items_pkey") @default(autoincrement())
+    receiptId  BigInt         @map("receipt_id")
+    productId  BigInt         @map("product_id")
+    locationId BigInt         @map("location_id")
+    quantity   Numeric(14, 3)
+    createdAt  Timestamptz    @default(now()) @map("created_at")
+    location   Locations      @relation(fields: [locationId], references: [id], onDelete: Restrict, map: "receipt_items_location_id_fkey", index: false)
+    product    Products       @relation(fields: [productId], references: [id], onDelete: Restrict, map: "receipt_items_product_id_fkey", index: false)
+    receipt    Receipts       @relation(fields: [receiptId], references: [id], onDelete: Cascade, map: "receipt_items_receipt_id_fkey", index: false)
+
+    @@unique([receiptId, productId, locationId], map: "receipt_items_receipt_id_product_id_location_id_key")
+    @@check(expression: "(quantity > (0)::numeric)", map: "receipt_items_quantity_check")
+    @@map("receipt_items")
+  }
+
+  model ReorderRules {
+    id              BigInt          @id(map: "reorder_rules_pkey") @default(autoincrement())
+    productId       BigInt          @map("product_id")
+    locationId      BigInt          @map("location_id")
+    minimumQuantity Numeric(14, 3)  @map("minimum_quantity")
+    maximumQuantity Numeric(14, 3)? @map("maximum_quantity")
+    reorderQuantity Numeric(14, 3)  @map("reorder_quantity")
+    isActive        Boolean         @default(true) @map("is_active")
+    createdAt       Timestamptz     @default(now()) @map("created_at")
+    updatedAt       Timestamptz     @default(now()) @map("updated_at")
+    location        Locations       @relation(fields: [locationId], references: [id], onDelete: Cascade, map: "reorder_rules_location_id_fkey", index: false)
+    product         Products        @relation(fields: [productId], references: [id], onDelete: Cascade, map: "reorder_rules_product_id_fkey", index: false)
+
+    @@unique([productId, locationId], map: "reorder_rules_product_id_location_id_key")
+    @@check(expression: "((maximum_quantity IS NULL) OR (maximum_quantity >= minimum_quantity))", map: "reorder_rules_check")
+    @@check(expression: "(minimum_quantity >= (0)::numeric)", map: "reorder_rules_minimum_quantity_check")
+    @@check(expression: "(reorder_quantity > (0)::numeric)", map: "reorder_rules_reorder_quantity_check")
+    @@map("reorder_rules")
+  }
+
+  model RolePermissions {
+    roleId       BigInt      @map("role_id")
+    permissionId BigInt      @map("permission_id")
+    permission   Permissions @relation(fields: [permissionId], references: [id], onDelete: Cascade, map: "role_permissions_permission_id_fkey", index: false)
+    role         Roles       @relation(fields: [roleId], references: [id], onDelete: Cascade, map: "role_permissions_role_id_fkey", index: false)
+
+    @@id([roleId, permissionId], map: "role_permissions_pkey")
+    @@map("role_permissions")
+  }
+
+  model Stock {
+    id               BigInt         @id(map: "stock_pkey") @default(autoincrement())
+    productId        BigInt         @map("product_id")
+    locationId       BigInt         @map("location_id")
+    quantity         Numeric(14, 3) @default(0)
+    reservedQuantity Numeric(14, 3) @default(0) @map("reserved_quantity")
+    createdAt        Timestamptz    @default(now()) @map("created_at")
+    updatedAt        Timestamptz    @default(now()) @map("updated_at")
+    location         Locations      @relation(fields: [locationId], references: [id], onDelete: Restrict, map: "stock_location_id_fkey")
+    product          Products       @relation(fields: [productId], references: [id], onDelete: Restrict, map: "stock_product_id_fkey")
+
+    @@unique([productId, locationId], map: "uq_stock_product_location")
+    @@index([locationId], map: "idx_stock_location")
+    @@index([productId], map: "idx_stock_product")
+    @@index([productId, locationId], map: "idx_stock_product_location")
+    @@check(expression: "(reserved_quantity <= quantity)", map: "chk_reserved_not_greater_than_stock")
+    @@check(expression: "(reserved_quantity >= (0)::numeric)", map: "chk_reserved_quantity")
+    @@check(expression: "(quantity >= (0)::numeric)", map: "chk_stock_quantity")
+    @@map("stock")
+  }
+
+  model StockLedger {
+    id             BigInt         @id(map: "stock_ledger_pkey") @default(autoincrement())
+    productId      BigInt         @map("product_id")
+    operationType  VarChar(30)    @map("operation_type")
+    referenceType  VarChar(30)    @map("reference_type")
+    referenceId    BigInt         @map("reference_id")
+    fromLocationId BigInt?        @map("from_location_id")
+    toLocationId   BigInt?        @map("to_location_id")
+    quantity       Numeric(14, 3)
+    performedBy    BigInt         @map("performed_by")
+    createdAt      Timestamptz    @default(now()) @map("created_at")
+    fromLocation   Locations?     @relation(name: "stock_ledger_from_location_id_fkey", fields: [fromLocationId], references: [id], onDelete: Restrict, map: "stock_ledger_from_location_id_fkey")
+    users          Users          @relation(fields: [performedBy], references: [id], onDelete: Restrict, map: "stock_ledger_performed_by_fkey", index: false)
+    product        Products       @relation(fields: [productId], references: [id], onDelete: Restrict, map: "stock_ledger_product_id_fkey")
+    toLocation     Locations?     @relation(name: "stock_ledger_to_location_id_fkey", fields: [toLocationId], references: [id], onDelete: Restrict, map: "stock_ledger_to_location_id_fkey")
+
+    @@index([createdAt], map: "idx_ledger_created_at")
+    @@index([fromLocationId], map: "idx_ledger_from_location")
+    @@index([productId], map: "idx_ledger_product")
+    @@index([referenceType, referenceId], map: "idx_ledger_reference")
+    @@index([toLocationId], map: "idx_ledger_to_location")
+    @@check(expression: "((operation_type)::text = ANY ((ARRAY['receipt'::character varying, 'delivery'::character varying, 'transfer'::character varying, 'adjustment'::character varying, 'initial_stock'::character varying])::text[]))", map: "stock_ledger_operation_type_check")
+    @@check(expression: "(quantity > (0)::numeric)", map: "stock_ledger_quantity_check")
+    @@map("stock_ledger")
+  }
+
+  model Transfers {
+    id            BigInt                   @id(map: "transfers_pkey") @default(autoincrement())
+    reference     VarChar(50)              @unique(map: "transfers_reference_key")
+    status        pg.enum(OperationStatus) @default("draft")
+    notes         String?
+    createdBy     BigInt                   @map("created_by")
+    validatedBy   BigInt?                  @map("validated_by")
+    validatedAt   Timestamptz?             @map("validated_at")
+    createdAt     Timestamptz              @default(now()) @map("created_at")
+    updatedAt     Timestamptz              @default(now()) @map("updated_at")
+    transferItems TransferItems[]
+    users         Users                    @relation(name: "transfers_created_by_fkey", fields: [createdBy], references: [id], onDelete: Restrict, map: "transfers_created_by_fkey", index: false)
+    usersUsers    Users?                   @relation(name: "transfers_validated_by_fkey", fields: [validatedBy], references: [id], onDelete: Restrict, map: "transfers_validated_by_fkey", index: false)
+
+    @@index([createdAt], map: "idx_transfers_created_at")
+    @@index([status], map: "idx_transfers_status")
+    @@map("transfers")
+  }
+
+  model TransferItems {
+    id             BigInt         @id(map: "transfer_items_pkey") @default(autoincrement())
+    transferId     BigInt         @map("transfer_id")
+    productId      BigInt         @map("product_id")
+    fromLocationId BigInt         @map("from_location_id")
+    toLocationId   BigInt         @map("to_location_id")
+    quantity       Numeric(14, 3)
+    createdAt      Timestamptz    @default(now()) @map("created_at")
+    fromLocation   Locations      @relation(name: "transfer_items_from_location_id_fkey", fields: [fromLocationId], references: [id], onDelete: Restrict, map: "transfer_items_from_location_id_fkey", index: false)
+    product        Products       @relation(fields: [productId], references: [id], onDelete: Restrict, map: "transfer_items_product_id_fkey", index: false)
+    toLocation     Locations      @relation(name: "transfer_items_to_location_id_fkey", fields: [toLocationId], references: [id], onDelete: Restrict, map: "transfer_items_to_location_id_fkey", index: false)
+    transfer       Transfers      @relation(fields: [transferId], references: [id], onDelete: Cascade, map: "transfer_items_transfer_id_fkey", index: false)
+
+    @@unique([transferId, productId, fromLocationId, toLocationId], map: "transfer_items_transfer_id_product_id_from_location_id_to_l_key")
+    @@check(expression: "(from_location_id <> to_location_id)", map: "transfer_items_check")
+    @@check(expression: "(quantity > (0)::numeric)", map: "transfer_items_quantity_check")
+    @@map("transfer_items")
+  }
+
+  native_enum OperationStatus {
+    draft = "draft"
+    waiting = "waiting"
+    ready = "ready"
+    done = "done"
+    cancelled = "cancelled"
+    @@map("operation_status")
+  }
+}
