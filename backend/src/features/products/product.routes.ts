@@ -1,10 +1,12 @@
 import { Router } from "express";
+
 import {
     createProduct,
     getProduct,
     getProducts,
     updateProduct,
 } from "./product.controller.js";
+
 import { requireAuth } from "../../middleware/auth.middleware.js";
 import { requireRole } from "../../middleware/role.middleware.js";
 

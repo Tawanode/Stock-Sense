@@ -1,8 +1,10 @@
-import * as productRepository from "./product.repository.js";
+import { prisma } from "../../config/database.js";
+import * as repository from "./product.repository.js";
 
 function serializeProduct(product: any) {
     return {
         ...product,
+
         id: product.id.toString(),
         categoryId: product.categoryId.toString(),
         unitId: product.unitId.toString(),
@@ -24,17 +26,22 @@ function serializeProduct(product: any) {
         stocks:
             product.stocks?.map((stock: any) => ({
                 ...stock,
+
                 id: stock.id.toString(),
                 productId: stock.productId.toString(),
                 locationId: stock.locationId.toString(),
+
                 quantity: stock.quantity.toString(),
-                reservedQuantity: stock.reservedQuantity.toString(),
+                reservedQuantity:
+                    stock.reservedQuantity.toString(),
 
                 location: stock.location
                     ? {
                         ...stock.location,
+
                         id: stock.location.id.toString(),
-                        warehouseId: stock.location.warehouseId.toString(),
+                        warehouseId:
+                            stock.location.warehouseId.toString(),
 
                         warehouse: stock.location.warehouse
                             ? {
@@ -49,12 +56,19 @@ function serializeProduct(product: any) {
         reorderRules:
             product.reorderRules?.map((rule: any) => ({
                 ...rule,
+
                 id: rule.id.toString(),
                 productId: rule.productId.toString(),
                 locationId: rule.locationId.toString(),
-                minimumQuantity: rule.minimumQuantity.toString(),
-                maximumQuantity: rule.maximumQuantity?.toString() ?? null,
-                reorderQuantity: rule.reorderQuantity.toString(),
+
+                minimumQuantity:
+                    rule.minimumQuantity.toString(),
+
+                maximumQuantity:
+                    rule.maximumQuantity?.toString() ?? null,
+
+                reorderQuantity:
+                    rule.reorderQuantity.toString(),
             })) ?? [],
     };
 }
@@ -64,13 +78,15 @@ export async function getProducts(params: {
     categoryId?: bigint;
     isActive?: boolean;
 }) {
-    const products = await productRepository.findProducts(params);
+    const products =
+        await repository.findProducts(params);
 
     return products.map(serializeProduct);
 }
 
 export async function getProduct(id: bigint) {
-    const product = await productRepository.findProductById(id);
+    const product =
+        await repository.findProductById(id);
 
     if (!product) {
         throw new Error("Product not found");
@@ -85,13 +101,31 @@ export async function createProduct(data: {
     categoryId: bigint;
     unitId: bigint;
 }) {
-    const existingProduct = await productRepository.findProductBySku(data.sku);
+    const category =
+        await prisma.orm.public.Categories.where({ id: data.categoryId }).first();
 
-    if (existingProduct) {
-        throw new Error("A product with this SKU already exists");
+    if (!category) {
+        throw new Error("Category not found");
     }
 
-    const product = await productRepository.createProduct(data);
+    const unit =
+        await prisma.orm.public.Units.where({ id: data.unitId }).first();
+
+    if (!unit) {
+        throw new Error("Unit not found");
+    }
+
+    const existing =
+        await repository.findProductBySku(data.sku);
+
+    if (existing) {
+        throw new Error(
+            "A product with this SKU already exists",
+        );
+    }
+
+    const product =
+        await repository.createProduct(data);
 
     return serializeProduct(product);
 }
@@ -106,21 +140,26 @@ export async function updateProduct(
         isActive?: boolean;
     },
 ) {
-    const existingProduct = await productRepository.findProductById(id);
+    const existing =
+        await repository.findProductById(id);
 
-    if (!existingProduct) {
+    if (!existing) {
         throw new Error("Product not found");
     }
 
-    if (data.sku && data.sku !== existingProduct.sku) {
-        const skuExists = await productRepository.findProductBySku(data.sku);
+    if (data.sku && data.sku !== existing.sku) {
+        const duplicate =
+            await repository.findProductBySku(data.sku);
 
-        if (skuExists) {
-            throw new Error("A product with this SKU already exists");
+        if (duplicate) {
+            throw new Error(
+                "A product with this SKU already exists",
+            );
         }
     }
 
-    const product = await productRepository.updateProduct(id, data);
+    const product =
+        await repository.updateProduct(id, data);
 
     return serializeProduct(product);
 }

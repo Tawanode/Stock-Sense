@@ -18,17 +18,18 @@ export async function findProducts(params: {
     }
     
     if (search) {
-        // In Prisma 8, we can use whereSql for complex OR conditions if builder doesn't support .or() chain directly
-        // Or we can just use Prisma standard query if supported. 
-        query = query.where((q) => q.name.ilike(`%${search}%`));
+        query = query.where((q: any) => q.or(
+            q.name.ilike(`%${search}%`),
+            q.sku.ilike(`%${search}%`)
+        ));
     }
 
     return query
         .include("category")
         .include("unit")
-        .include("stocks", (s) => s.include("location", (l) => l.include("warehouse")))
-        .include("reorderRules")
-        .orderBy((q) => q.createdAt.desc())
+        .include("stocks", (s: any) => s.include("location", (l: any) => l.include("warehouse")))
+        .include("reorderRules", (r: any) => r.include("location"))
+        .orderBy((q: any) => q.createdAt.desc())
         .all();
 }
 
@@ -37,8 +38,8 @@ export async function findProductById(id: bigint) {
         .where({ id: BigInt(id) })
         .include("category")
         .include("unit")
-        .include("stocks", (s) => s.include("location", (l) => l.include("warehouse")))
-        .include("reorderRules", (r) => r.include("location"))
+        .include("stocks", (s: any) => s.include("location", (l: any) => l.include("warehouse")))
+        .include("reorderRules", (r: any) => r.include("location"))
         .first();
 }
 

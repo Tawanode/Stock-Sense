@@ -1,10 +1,12 @@
 import { Request, Response, NextFunction } from "express";
+
 import {
     createProductSchema,
     productQuerySchema,
     updateProductSchema,
 } from "./product.validator.js";
-import * as productService from "./product.service.js";
+
+import * as service from "./product.service.js";
 
 export async function getProducts(
     req: Request,
@@ -12,9 +14,11 @@ export async function getProducts(
     next: NextFunction,
 ) {
     try {
-        const query = productQuerySchema.parse(req.query);
+        const query =
+            productQuerySchema.parse(req.query);
 
-        const products = await productService.getProducts(query);
+        const products =
+            await service.getProducts(query);
 
         res.json({
             success: true,
@@ -33,7 +37,8 @@ export async function getProduct(
     try {
         const id = BigInt(req.params.id as string);
 
-        const product = await productService.getProduct(id);
+        const product =
+            await service.getProduct(id);
 
         res.json({
             success: true,
@@ -50,9 +55,11 @@ export async function createProduct(
     next: NextFunction,
 ) {
     try {
-        const data = createProductSchema.parse(req.body);
+        const data =
+            createProductSchema.parse(req.body);
 
-        const product = await productService.createProduct(data);
+        const product =
+            await service.createProduct(data);
 
         res.status(201).json({
             success: true,
@@ -72,9 +79,11 @@ export async function updateProduct(
     try {
         const id = BigInt(req.params.id as string);
 
-        const data = updateProductSchema.parse(req.body);
+        const data =
+            updateProductSchema.parse(req.body);
 
-        const product = await productService.updateProduct(id, data);
+        const product =
+            await service.updateProduct(id, data);
 
         res.json({
             success: true,
